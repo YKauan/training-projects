@@ -1,0 +1,14 @@
+# Ignorar arquivos .env
+.env
+
+# Ignorar pasta de configurações do VSCode
+.vscode/
+
+# Ignorar binários de build
+build/bin
+
+# Ignorar dependências do Node.js
+node_modules
+
+# Ignorar diretório de distribuição do frontend
+frontend/dist
