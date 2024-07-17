@@ -25,7 +25,7 @@ func (a *App) startup(ctx context.Context) {
 func (a *App) Greet(name string) *string {
 	artist, errEntities := entities.GetArtist(name)
 	if errEntities != nil {
-		println("Error:", errEntities.Error())
+		println("Error: ", errEntities.Error())
 	}
 
 	return &artist.Name
