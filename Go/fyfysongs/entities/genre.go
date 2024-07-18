@@ -3,8 +3,11 @@ package entities
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"fyfysongs/pkg"
+
+	"github.com/wailsapp/wails"
 )
 
 type Genre struct {
@@ -26,4 +29,19 @@ func GetGenres() (*Genre, error) {
 	}
 
 	return &genres, nil
+}
+
+func (s *Genre) WailsInit(runtime *wails.Runtime) error {
+	go func() {
+		for {
+			genres, err := GetGenres()
+			if err != nil {
+				fmt.Println("Error getting genres:", err)
+				continue
+			}
+			runtime.Events.Emit("genres", genres)
+			time.Sleep(5 * time.Second)
+		}
+	}()
+	return nil
 }

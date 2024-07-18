@@ -15,7 +15,7 @@
         <div class="content">
             <div id="result" class="result">{{ data.resultText }}</div>
             <div id="input" class="input-box">
-                <button class="glow-on-hover" @click="fetchGenres">Genres</button>
+                <button class="glow-on-hover" @click="fetchGenres">Search Genres</button>
             </div>
          </div>
     </main>
@@ -31,7 +31,6 @@
         genres: [],
         resultText: "",
     })
-
 
     function fetchGenres() {
         Genres(data.name).then(genres => {

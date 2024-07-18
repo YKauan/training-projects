@@ -72,15 +72,16 @@
 </script>
 
 <style lang="scss" scoped>
-    body{
-        min-height: 100vh;
-        margin: 0;
+    body {
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: monospace;
+        overflow: hidden;
+        min-height: 100vh;
+        padding: 1rem;
+        transition: 0.2s ease-in-out;
     }
-    .card{
+    .card {
         position: relative;
         width: 100%;
         height: 370px;
