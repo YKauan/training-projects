@@ -32,11 +32,11 @@ func (a *App) Genres(name string) *[]string {
 }
 
 // Greet returns a greeting for the given name
-func (a *App) Artist(name string) *string {
+func (a *App) Artist(name string) **entities.Artist {
 	artist, errEntities := entities.GetArtist(name)
 	if errEntities != nil {
 		println("Error: ", errEntities.Error())
 	}
 
-	return &artist.Name
+	return &artist
 }
