@@ -1,71 +1,213 @@
 <script setup>
-import {reactive} from 'vue'
-import {Greet} from '../../wailsjs/go/main/App'
+import {ref} from 'vue'
+import logoURL from '../assets/images/logo.png'
 
-const data = reactive({
-  name: "",
-  resultText: "Please enter artist id 👇",
-})
+const isExpanded = ref(localStorage.getItem("isExpanded") === "true")
 
-function greet() {
-  Greet(data.name).then(fyfysongs => {
-    data.resultText = fyfysongs
-  })
+const ToggleMenu = () => {
+	isExpanded.value = !isExpanded.value
+	localStorage.setItem("isExpanded", isExpanded.value)
 }
 
 </script>
 
 <template>
-  <main>
-    <div id="result" class="result">{{ data.resultText }}</div>
-    <div id="input" class="input-box">
-      <input id="name" v-model="data.name" autocomplete="off" class="input" type="text"/>
-      <button class="btn" @click="greet">Greet</button>
-    </div>
-  </main>
+    <aside :class="`${isExpanded && 'is-expanded' }`">
+      
+      <div class="logo">
+        <img :src="logoURL" alt="Vue" /> 
+      </div>
+
+      <div class="menu-toggle-wrap">
+        <button class="menu-toggle" @click="ToggleMenu">
+        <span class="material-icons">keyboard_double_arrow_right</span>
+        </button>
+      </div>
+
+      <h3>Menu</h3>
+      <div class="menu">
+
+        <router-link to="/" class="button">
+          <span class="material-icons">home</span>
+          <span class="text">Home</span>
+        </router-link>
+        <router-link to="/artist" class="button">
+          <span class="material-icons">library_music</span>
+          <span class="text">Artist</span>
+        </router-link>
+        <router-link to="/genres" class="button">
+          <span class="material-icons">music_note</span>
+          <span class="text">Genres</span>
+        </router-link>
+        <router-link to="/about" class="button">
+          <span class="material-icons">description</span>
+          <span class="text">About</span>
+        </router-link>
+
+      </div>
+
+      <div class="flex"></div>
+		
+      <div class="menu">
+        <router-link to="/settings" class="button">
+          <span class="material-icons">settings</span>
+          <span class="text">Settings</span>
+        </router-link>
+      </div>
+
+    </aside>
+
 </template>
 
-<style scoped>
-.result {
-  height: 20px;
-  line-height: 20px;
-  margin: 1.5rem auto;
-}
+<style lang="scss" scoped>
+  aside {
+    display: flex;
+    flex-direction: column;
 
-.input-box .btn {
-  width: 60px;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 3px;
-  border: none;
-  margin: 0 0 0 20px;
-  padding: 0 8px;
-  cursor: pointer;
-}
+    background-color: var(--dark);
+    color: var(--light-buttuns);
 
-.input-box .btn:hover {
-  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-  color: #333333;
-}
+    width: calc(2rem + 32px);
+    overflow: hidden;
+    min-height: 100vh;
+    padding: 1rem;
 
-.input-box .input {
-  border: none;
-  border-radius: 3px;
-  outline: none;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 10px;
-  background-color: rgba(240, 240, 240, 1);
-  -webkit-font-smoothing: antialiased;
-}
+    transition: 0.2s ease-in-out;
 
-.input-box .input:hover {
-  border: none;
-  background-color: rgba(255, 255, 255, 1);
-}
+    .flex {
+      flex: 1 1 0%;
+    }
 
-.input-box .input:focus {
-  border: none;
-  background-color: rgba(255, 255, 255, 1);
-}
+    .logo {
+      margin-bottom: 1rem;
+
+      img {
+        width: 2rem;
+      }
+    }
+
+    .menu-toggle-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+
+      position: relative;
+      top: 0;
+      transition: 0.2s ease-in-out;
+
+      .menu-toggle {
+        transition: 0.2s ease-in-out;
+        .material-icons {
+          font-size: 2rem;
+          color: var(--light-buttuns);
+          transition: 0.2s ease-out;
+        }
+        
+        &:hover {
+          .material-icons {
+            color: var(--primary);
+            transform: translateX(0.5rem);
+          }
+        }
+      }
+    }
+
+    h3, .button .text {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    h3 {
+      color: var(--grey);
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .menu {
+      margin: 0 -1rem;
+
+      .button {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+
+        transition: 0.2s ease-in-out;
+        padding: 0.5rem 1rem;
+
+        .material-icons {
+          font-size: 2rem;
+          color: var(--light-buttuns);
+          transition: 0.2s ease-in-out;
+        }
+        .text {
+          color: var(--light-buttuns);
+          transition: 0.2s ease-in-out;
+        }
+
+        &:hover {
+          background-color: var(--dark-alt);
+
+          .material-icons, .text {
+            color: var(--primary);
+          }
+        }
+
+        &.router-link-exact-active {
+          background-color: var(--dark-alt);
+          border-right: 5px solid var(--primary);
+
+          .material-icons, .text {
+            color: var(--primary);
+          }
+        }
+      }
+    }
+
+    .footer {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+
+      p {
+        font-size: 0.875rem;
+        color: var(--grey);
+      }
+    }
+
+    .scrollable-menu {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    &.is-expanded {
+      width: var(--sidebar-width);
+
+      .menu-toggle-wrap {
+        top: -3rem;
+        
+        .menu-toggle {
+          transform: rotate(-180deg);
+        }
+      }
+
+      h3, .button .text {
+        opacity: 1;
+      }
+
+      .button {
+        .material-icons {
+          margin-right: 1rem;
+        }
+      }
+
+      .footer {
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      position: absolute;
+      z-index: 99;
+    }
+  }
 </style>

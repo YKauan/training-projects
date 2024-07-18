@@ -22,7 +22,17 @@ func (a *App) startup(ctx context.Context) {
 }
 
 // Greet returns a greeting for the given name
-func (a *App) Greet(name string) *string {
+func (a *App) Genres(name string) *[]string {
+	genres, err := entities.GetGenres()
+	if err != nil {
+		println("Error: ", err.Error())
+	}
+
+	return &genres.Genres
+}
+
+// Greet returns a greeting for the given name
+func (a *App) Artist(name string) *string {
 	artist, errEntities := entities.GetArtist(name)
 	if errEntities != nil {
 		println("Error: ", errEntities.Error())
