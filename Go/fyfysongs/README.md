@@ -10,3 +10,9 @@ FyFySongs é um aplicativo em construção que utiliza a API do Spotify para exi
 - **Gêneros Musicais:** Explore os diferentes gêneros musicais disponíveis no Spotify.
 - **Integração com Spotify:** Utilize a API do Spotify para obter dados em tempo real sobre músicas, álbuns e playlists.
 - **Interface Amigável:** Uma interface moderna e intuitiva construída com Vue.js.
+
+## References
+
+https://www.brasilcode.com.br/35-botoes-css-com-animacao/
+https://www.youtube.com/watch?v=Ul4KOXNQJSk
+https://www.youtube.com/watch?v=Dg9rUXxNV-c
