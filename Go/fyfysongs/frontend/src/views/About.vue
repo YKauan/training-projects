@@ -9,6 +9,7 @@
             
             <br>
             <h2>Technologies used</h2>
+            
             <div class="tech">
                 <p class="devicon-go-original-wordmark"> Go</p> 
                 <p class="devicon-vuejs-plain"> Vue</p>
