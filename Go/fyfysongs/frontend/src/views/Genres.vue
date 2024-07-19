@@ -96,7 +96,7 @@
         border: none;
         outline: none;
         color: var(--primary);
-        background: #111;
+        background: var(--dark);
         cursor: pointer;
         position: relative;
         z-index: 0;
@@ -122,7 +122,7 @@
     }
 
     .glow-on-hover:active {
-        color: #000
+        color: var(--dark)
     }
 
     .glow-on-hover:active:after {
@@ -139,7 +139,7 @@
         position: absolute;
         width: 100%;
         height: 100%;
-        background: #111;
+        background: var(--dark);
         left: 0;
         top: 0;
         border-radius: 10px;
