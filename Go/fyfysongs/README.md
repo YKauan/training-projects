@@ -36,24 +36,6 @@ FyFySongs is a mini project that leverages the Spotify APIs to provide dynamic a
 #### Response Sample
 ```json
 {
-  "genres": ["alternative", "samba"]
-}
-```
-
-
-#### Get Genres
-
-```https
-  GET /recommendations/available-genre-seeds
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `access_token` | `string` | **Required**. Your API key |
-
-#### Response Sample
-```json
-{
   "external_urls": {
     "spotify": "string"
   },
@@ -79,7 +61,22 @@ FyFySongs is a mini project that leverages the Spotify APIs to provide dynamic a
 ```
 
 
+#### Get Genres
 
+```https
+  GET /recommendations/available-genre-seeds
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `access_token` | `string` | **Required**. Your API key |
+
+#### Response Sample
+```json
+{
+  "genres": ["alternative", "samba"]
+}
+```
 
 ## 🔗 References And Documentation Used
 
