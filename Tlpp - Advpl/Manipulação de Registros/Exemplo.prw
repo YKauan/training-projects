@@ -14,7 +14,7 @@ User Function UTESTE01()
 
 	Reset Environment
 	If RpcSetEnv(cCodEmp,cCodFil,,,"FIS")
-		fDupliRegS()
+		fDupliReg()
 		If !FWGetRunSchedule()
 			RpcClearEnv()
 		EndIf
@@ -25,12 +25,12 @@ User Function UTESTE01()
 Return( Nil )
 
 /*/---------------------------------------------------------------------------
-- Programa: fDupliRegS
+- Programa: fDupliReg
 - Autor: Kauan Santana
 - Data: 02/04/2024
 - Descrição: Função para manipular registros
 ----------------------------------------------------------------------------/*/
-Static Function fDupliRegS()
+Static Function fDupliReg()
 
 	Local aArea 	:= FwGetArea()
 	Local cQrySF1	:= ""
@@ -182,13 +182,13 @@ Static Function fGetDados( cLocFile )
 
 	oFile := FWFileReader():New(cLocFile)
 
-	if oFile:Open()
+	If oFile:Open()
 
 		While oFile:HasLine()
 			aAdd(aDados,Separa(oFile:GetLine(),";",.T.))
-		enddo
+		EndDo
 
 		oFile:Close()
-	endif
+	EndIf
 
 Return( aDados )
