@@ -1,0 +1,897 @@
+#Include "Totvs.ch"
+#include "Colors.ch"
+#include "Protheus.ch"
+#include "Tlpp-core.th"
+//https://www.youtube.com/watch?v=PPRJuU0xdx4&embeds_referring_euri=https%3A%2F%2Fwww.blogadvpl.com%2F&source_ve_path=MjM4NTE
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: SleekTLPP                                                                      |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Class to manipulate style of components                                     |
+---------------------------------------------------------------------------------------------/*/
+Class SleekTLPP
+
+    //=> Metodos 
+    Static Method TButtonQCss()
+    Static Method TCBrowseQCss()
+    Static Method TCheckBoxQCss()
+    Static Method TComboBoxQCss()
+    Static Method TFolderQCss()
+    Static Method TGetQCss()
+    Static Method TGroupQCss()
+    Static Method TListBoxQCss()
+    Static Method TMeterQCss()
+    Static Method TMsgBarQCss()
+    Static Method TMultiGetQCss()
+    Static Method TPanelQCss()
+    Static Method TPanelCSSQCss()
+    Static Method TRadMenuQCss()
+    Static Method TSayQCss()
+    Static Method TSimpleEditorQCss()
+    Static Method TSliderQCss()
+    Static Method TSpinBoxQCss()
+    Static Method TSplitterQCss()
+    Static Method TTreeQCss()
+
+EndClass
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TButtonQCss                                                                    |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TButton                                                            |
+|   - Parameters:                                                                              |
+|       - cBorderRadius: Radius of border                                                      |
+|       - cColor: Text color                                                                   |
+|       - cBackgroundColor: Color of background                                                |
+|       - aPressed: Array with pressed style, first Position indicates if the style is active  |
+|       - aHover: Array with hover style, first Position indicates if the style is active      |
+|  - Return:                                                                                   |
+|       - QPushButtom: Style of TButton                                                        |
+---------------------------------------------------------------------------------------------/*/
+Method TButtonQCss( aIcon As Array, cBorderRadius As Character, cColor As Character, cBackgroundColor As Character, aPressed As Array, aHover As Array ) Class SleekTLPP
+
+    Default aIcon            := {.F., "rpo:final.png", "none", "2px"}
+    Default cBorderRadius    := "6px"
+    Default cColor           := "white"
+    Default cBackgroundColor := "#3A506B"
+    Default aPressed         := {.T., "background-color: #313866;", "border: none;"}
+    Default aHover           := {.T., "border: none;"}
+
+    Local QPushButtom        := ""
+
+    If aIcon[1] //=> If the style is active
+
+        QPushButtom := " QPushButton {"                                           +;
+                        "           background-image: url(" + aIcon[2] + ");"     +;
+                        "           background-repeat: " + aIcon[3] + ";"         +;
+                        "           margin: " + aIcon[4] + ";"                    +;
+                        "       	border-radius: " + cBorderRadius + ";"        +;
+                        "       	color: " + cColor + ";"                       +;
+                        "       	background-color: " + cBackgroundColor + ";"  +;
+                        "       }"
+    
+    Else
+
+        QPushButtom :=  "       QPushButton {"                                     +;
+                    "       	border-radius: " + cBorderRadius + ";"             +;
+                    "       	color: " + cColor + ";"                            +;
+                    "       	background-color: " + cBackgroundColor + ";"       +;
+                    "       }"	
+    
+    EndIf
+    
+
+    If aPressed[1] //=> If the style is active
+        QPushButtom += " QPushButton:pressed {" + aPressed[2] + aPressed[3] + "}"
+    EndIf
+
+    If aHover[1] //=> If the style is active
+        QPushButtom += " QPushButton::hover {" + aHover[2] + "}"
+    EndIf
+										
+                            
+Return( QPushButtom )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TCBrowseQCss                                                                   |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TCBrowse                                                           |
+|   - Parameters:                                                                              |
+|       - cGridlineColor: Color of grid                                                        |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackground: Color of background                                                     |
+|       - cAlternateBackgroundColor: Color of background when pressed                          |
+|       - cSelectionBackgroundColor: Color of background when selected                         |
+|       - cItemSelectedFocus: Color of background when selected and focused                    |
+|  - Return:                                                                                   |
+|       - QTableWidget: Style of TCBrowse                                                      |
+---------------------------------------------------------------------------------------------/*/
+Method TCBrowseQCss( cGridlineColor As Character, cColor As Character, cFontSize As Character, cBackground As Character, cAlternateBackgroundColor As Character, cSelectionBackgroundColor As Character, cItemSelectedFocus As Character ) Class SleekTLPP
+
+    Default cGridlineColor            := "#632423"
+    Default cColor                    := "white"
+    Default cFontSize                 := "12px"
+    Default cBackground               := "#1C2541"
+    Default cAlternateBackgroundColor := "#1C2541"
+    Default cSelectionBackgroundColor := "qlineargradient(x1: 0, y1: 0, x2: 0.8, y2: 0.8, stop: 0 #313866, stop: 1 #313866)"
+    Default cItemSelectedFocus        := "#313866"
+
+    Local QTableWidget :=   "       QTableWidget {"                                                                  +;
+                            "  			gridline-color: " + cGridlineColor + ";"                                    +;
+                            "  			color: " + cColor + ";"                                                     +;
+                            "  			font-size: " + cFontSize + ";"                                              +;
+                            "  			background: " + cBackground + ";"                                           +;
+                            "  			alternate-background-color: " + cAlternateBackgroundColor + ";"             +;
+                            "  			selection-background-color: " + cSelectionBackgroundColor + ";"             +;
+                            "		}"                                                                              +;
+                            "		QTableView:item:selected:focus {background-color: " + cItemSelectedFocus + "}"
+
+Return( QTableWidget )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TCheckBoxQCss                                                                  |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TCheckBox                                                          |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackgroundColor: Color of background                                                |
+|       - cWidth: Width of indicator                                                           |
+|       - cHeight: Height of indicator                                                         |
+|  - Return:                                                                                   |
+|       - QCheckBox: Style of TCheckBox                                                        |
+---------------------------------------------------------------------------------------------/*/
+Method TCheckBoxQCss( cColor As Character, cFontSize As Character, cBackgroundColor As Character, cWidth As Character, cHeight As Character, cColorChecked As Character, cColorNoChecked As Character ) Class SleekTLPP
+
+    Default cColor           := "white"
+    Default cFontSize        := "12px"
+    Default cBackgroundColor := "#313866"
+    Default cWidth           := "15px"
+    Default cHeight          := "15px"
+    Default cColorChecked    := "#313866"
+    Default cColorNoChecked  := "white"
+
+    Local QCheckBox :=    	"       QCheckBox {"                                     +;
+                            "  		color: " + cColor + ";"                          +;
+                            "  		font-size: " + cFontSize + ";"                   +;
+                            "		}"                                               +;
+                            "		QCheckBox::indicator {"                          +;
+                            "		  width: " + cWidth + ";"                        +;
+                            "		  height: " + cHeight + ";"                      +;
+                            "		}"                                               +;
+                            "		QCheckBox::indicator:checked {"                  +; 		
+                            "		  /*image: url('your-img.png');*/"               +;		
+                            "  		  color: " + cColorChecked + ";"                 +;
+                            "		}"                                               +;									
+                            "		QCheckBox::indicator::unchecked {"               +; 	
+                            "		  /*image: url('your-img.png');*/"               +;		
+                            "  		  color: " + cColorNoChecked + ";"               +;
+                            "		}"
+
+Return( QCheckBox )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TComboBoxQCss                                                                  |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TComboBox                                                          |
+|   - Parameters:                                                                              |
+|       - cFontFamily: Font                                                                    |
+|       - cFontSize: Font size                                                                 |
+|       - cBorderRadius: Radius of border                                                      |
+|       - cBackground: Color of background                                                     |
+|       - cBorder: Border                                                                      |
+|       - cColor: Text color                                                                   |
+|       - cPadding: Padding                                                                    |
+|       - cMinHeight: Minimum height                                                           |
+|       - cHeight: Height                                                                      |
+|       - cSelectionBackgroundColor: Color of background when selected                         |
+|       - cOn: Color of background when on                                                     |
+|       - cDownArrowPadding: Padding of down arrow                                             |
+|       - cDownArrowWidth: Width of down arrow                                                 |
+|       - cDownArrowHeight: Height of down arrow                                               |
+|  - Return:                                                                                   |
+|       - QComboBox: Style of TComboBox                                                        |
+---------------------------------------------------------------------------------------------/*/
+Method TComboBoxQCss( cFontFamily As Character, cFontSize As Character, cBorderRadius As Character, cBackground As Character, cBorder As Character, cColor As Character, cPadding As Character, cMinHeight As Character, cHeight As Character, cSelectionBackgroundColor As Character, cOn As Character, cDownArrowPadding As Character, cDownArrowWidth As Character, cDownArrowHeight As Character ) Class SleekTLPP
+
+    Default cFontFamily               := "Calibri,Lucida,Verdana"
+    Default cFontSize                 := "14px"
+    Default cBorderRadius             := "6px"
+    Default cBackground               := "#3A506B"
+    Default cBorder                   := "none"
+    Default cColor                    := "white"
+    Default cPadding                  := "4px"
+    Default cMinHeight                := "26px"
+    Default cHeight                   := "26px"
+    Default cSelectionBackgroundColor := "#313866"
+    Default cOn                       := "#3A506B"
+    Default cDownArrowPadding         := "0px 5px 0px 5px"
+    Default cDownArrowWidth           := "20px"
+    Default cDownArrowHeight          := "20px"
+
+    Local QComboBox :=     "       QComboBox {"                                                             +;
+                            "  			font-family: " + cFontFamily + ";"                                  +;
+                            "  			font-size: " + cFontSize + ";"                                      +;
+                            "  			border-radius: " + cBorderRadius + ";"                              +;
+                            "  			background: " + cBackground + ";"                                   +;
+                            "  			border: " + cBorder + ";"                                           +;
+                            "  			color: " + cColor + ";"                                             +;
+                            "  			padding: " + cPadding + ";"                                         +;
+                            "  			min-height: " + cMinHeight + ";"                                    +;
+                            "		}"                                                                      +;
+                            "		QComboBox QAbstractItemView {"                                          +;
+                            "			border: " + cBorder + ";"                                           +;
+                            "			selection-background-color: " + cSelectionBackgroundColor + ";"     +;
+                            "			height: " + cHeight + ";"                                           +;
+                            "		}"                                                                      +;
+                            "		QComboBox:on {"                                                         +;
+                            "			background: " + cOn + ";"                                           +;
+                            "		}"                                                                      +;
+                            "		QComboBox::down-arrow {"                                                +;
+                            "			padding: " + cDownArrowPadding + ";"                                +;
+                            "			width: " + cDownArrowWidth + ";"                                    +;
+                            "			height: " + cDownArrowHeight + ";"                                  +;
+                            "		}"
+
+Return( QComboBox )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TFolderQCss                                                                    |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TFolder                                                           |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|  - Return:                                                                                   |
+|       - QTabBar: Style of TFolder                                                            |
+---------------------------------------------------------------------------------------------/*/
+Method TFolderQCss( cColor As Character, cFontSize As Character, cBackground As Character, cBackgroundSelected As Character, cBorderSelected As Character, cBorderRadiusSelected As Character, cBorderRadiusNoSelected As Character ) Class SleekTLPP
+
+    Default cColor                  := "white"
+    Default cFontSize               := "14px"
+    Default cBackground             := "#3A506B"
+    Default cBorderSelected         := "none"
+    Default cBackgroundSelected     := "#313866"
+    Default cBorderRadiusSelected   := "6px"
+    Default cBorderRadiusNoSelected := "6px"
+
+    Local QTabBar := "		QTabBar::tab {"                                      +;
+                     "			color: " + cColor + ";"                          +;
+                     "			font-size: " + cFontSize + ";"                   +;
+                     "          background-color:" + cBackground + ";"           +;
+                     "		}"                                                   +;
+                     "      QTabBar::tab:selected {"                             +;
+				     "          background-color: " + cBackgroundSelected + ";"  +;
+				     "          border: " + cBorderSelected + ";"                +;
+                     "          border-radius: " + cBorderRadiusSelected + ";"   +;
+				     "      }"                                                   +;
+				     "      QTabBar::tab:!selected {"                            +;
+				     "          border-radius: " + cBorderRadiusNoSelected + ";" +;
+				     "      }"
+
+Return( QTabBar )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TGetQCss                                                                       |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TGet                                                               |
+|   - Parameters:                                                                              |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|       - cColor: Text color                                                                   |
+|       - cBackground: Color of background                                                     |
+|       - cSelectionBackground: Color of background when selected                              |
+|  - Return:                                                                                   |
+|       - QLineEdit: Style of TGet                                                             |
+---------------------------------------------------------------------------------------------/*/
+Method TGetQCss( aFocus As Array, aHover As Array, cBorder As Character, cRadius As Character, cColor As Character, cBackground As Character, cSelectionBackground As Character, cFontSize As Character, cBackgroundAttachment As Character, cPaddingLeft As Character ) Class SleekTLPP
+
+    Default aFocus                := {.T., "background-color: #313866;"}
+    Default aHover                := {.T., "border: 3px solid #313866;"}
+    Default cBorder               := "none"
+    Default cRadius               := "5px"
+    Default cColor                := "white"
+    Default cBackground           := "#3A506B"
+    Default cSelectionBackground  := "#313866"
+    Default cFontSize             := "13px"
+    Default cBackgroundAttachment := "fixed"
+    Default cPaddingLeft          := "5px"
+
+    Local QLineEdit :=  " QLineEdit{"                                                       +;
+                        "   border:" + cBorder + ";"                                        +;
+                        "   border-radius:" + cRadius + ";"                                 +;
+                        "   background-color:" + cBackground + ";"                          +;
+                        "   selection-background-color:" + cSelectionBackground + ";"       +;
+                        "   color:" + cColor + ";"                                          +;
+                        "   font-size: " + cFontSize + ";"                                  +;
+                        "   background-attachment: " + cBackgroundAttachment + ";"          +;
+                        "   padding-left: " + cPaddingLeft + ";"                            +;
+                        " }"
+
+    If aFocus[1] //=> If the style is active
+        QLineEdit += " QLineEdit::focus {" + aFocus[2] + "}"
+    EndIf
+
+    If aHover[1] //=> If the style is active
+        QLineEdit += " QLineEdit::hover {" + aHover[2] + "}"
+    EndIf
+
+Return( QLineEdit )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TGroupQCss                                                                     |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TGroup                                                             |
+|   - Parameters:                                                                              |
+|       - cBackground: Color of background                                                     |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|       - cMarginTop: Margin top                                                               |
+|       - cTitleColor: Color of title                                                          |
+|       - cTitleSubcontrolOrigin: Subcontrol origin                                            |
+|       - cTitlePadding: Padding                                                               |
+|       - cTitleSubcontrolPosition: Subcontrol position                                        |
+|       - cTitleBackground: Color of background                                                |
+|  - Return:                                                                                   |
+|       - QGroupBox: Style of TGroup                                                           |
+---------------------------------------------------------------------------------------------/*/
+Method TGroupQCss( cBackground As Character, cBorder As Character, cRadius As Character, cMarginTop As Character, cTitleColor As Character, cTitleSubcontrolOrigin As Character, cTitlePadding As Character, cTitleSubcontrolPosition As Character, cTitleBackground As Character ) Class SleekTLPP
+
+    Default cBackground              := "#3A506B"
+    Default cBorder                  := "none"
+    Default cRadius                  := "5px"
+    Default cMarginTop               := "0px"
+    Default cTitleColor              := "white"
+    Default cTitleSubcontrolOrigin   := "margin"
+    Default cTitlePadding            := "0px"
+    Default cTitleSubcontrolPosition := "top center"
+    Default cTitleBackground         := "#3A506B"
+
+    Local QGroupBox :=	 	"		QGroupBox {"                                                 +;
+                            "  			background-color: " + cBackground + ";"                  +;
+                            "  			border: " + cBorder + ";"                                +;
+                            "  			border-radius: " + cRadius + ";"                         +;
+                            "  			margin-top: " + cMarginTop + ";"                         +;
+                            "		}"                                                           +;
+                            "		QGroupBox::title {"                                          +;
+                            "  			color: " + cTitleColor + ";"                             +;
+                            "  			subcontrol-origin: " + cTitleSubcontrolOrigin + ";"      +;
+                            "  			padding: " + cTitlePadding + ";"                         +;
+                            "  			subcontrol-position: " + cTitleSubcontrolPosition + ";"  +;
+                            "  			background-color: " + cTitleBackground + ";"             +;
+                            "		}"
+
+Return( QGroupBox )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TListBoxQCss                                                                   |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TListBox                                                           |
+|   - Parameters:                                                                              |
+|       - cGridlineColor: Color of grid                                                        |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackground: Color of background                                                     |
+|       - cAlternateBackgroundColor: Color of background when pressed                          |
+|       - cSelectionBackgroundColor: Color of background when selected                         |
+|       - cItemSelectedFocus: Color of background when selected and focused                    |
+|  - Return:                                                                                   |
+|       - QListWidget: Style of TListBox                                                       |
+---------------------------------------------------------------------------------------------/*/
+Method TListBoxQCss( cGridlineColor As Character, cColor As Character, cFontSize As Character, cBackground As Character, cAlternateBackgroundColor As Character, cSelectionBackgroundColor As Character, cItemSelectedFocus As Character, cBorder As Character ) Class SleekTLPP
+
+    Default cGridlineColor            := "#313866"
+    Default cColor                    := "white"
+    Default cBorder                   := "none"
+    Default cFontSize                 := "12px"
+    Default cBackground               := "#3A506B"
+    Default cAlternateBackgroundColor := "#D7E3BC"
+    Default cSelectionBackgroundColor := "qlineargradient(x1: 0, y1: 0, x2: 0.8, y2: 0.8, stop: 0 #1C2541, stop: 1 #313866)"
+    Default cItemSelectedFocus        := "#313866"
+
+    Local QListWidget :=  "       QListWidget {"                                                                    +;
+                            "  			gridline-color: " + cGridlineColor + ";"                                    +;
+                            "  			color: " + cColor + ";"                                                     +;
+                            "  			border: " + cBorder + ";"                                                   +;
+                            "  			font-size: " + cFontSize + ";"                                              +;
+                            "  			background: " + cBackground + ";"                                           +;
+                            "  			alternate-background-color: " + cAlternateBackgroundColor + ";"             +;
+                            "  			selection-background-color: " + cSelectionBackgroundColor + ";"             +;
+                            "		}"                                                                              +;
+                            "		QListWidget:item:selected:focus {background-color: " + cItemSelectedFocus + "}"
+
+Return( QListWidget )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TMeterQCss                                                                     |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TMeter                                                             |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackground: Color of background                                                     |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|  - Return:                                                                                   |
+|       - QProgressBar: Style of TMeter                                                        |
+---------------------------------------------------------------------------------------------/*/
+Method TMeterQCss( cBackground As Character, cFontSize As Character, cBackgroundChunk As Character, cBorder As Character, cRadius As Character, cMargin As Character ) Class SleekTLPP
+
+    Default cBackground      := "#3A506B"
+    Default cFontSize        := "12px"
+    Default cBackgroundChunk := "#313866"
+    Default cBorder          := "none"
+    Default cRadius          := "6px"
+    Default cMargin          := "0.5px"
+
+    Local QProgressBar :=   "       QProgressBar {"                                   +;
+                            "       	font-size: " + cFontSize + ";"               +;
+                            "       	background-color: " + cBackground + ";"      +;
+                            "       	border: " + cBorder + ";"                    +;
+                            "       	border-radius: " + cRadius + ";"             +;
+                            "       }"                                               +;
+                            "      QProgressBar::chunk {"                            +;
+                            "      background-color: " + cBackgroundChunk + ";"      +;
+                            "    margin: " + cMargin + "; "                          +;
+                            "}"
+
+Return( QProgressBar )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TMsgBarQCss                                                                    |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TMsgBar                                                            |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|       - cBackground: Color of background                                                     |
+|  - Return:                                                                                   |
+|       - QStatusBar: Style of TMsgBar                                                         |
+---------------------------------------------------------------------------------------------/*/
+Method TMsgBarQCss( cColor As Character, cFontSize As Character, cBorder As Character, cRadius As Character, cBackground As Character, cPaddingLeft As Character ) Class SleekTLPP
+
+    Default cColor       := "white"
+    Default cFontSize    := "14px"
+    Default cBorder      := "1px solid #A9A9A9"
+    Default cRadius      := "6px"
+    Default cBackground  := "qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #313866, stop: 1 #000000)"
+    Default cPaddingLeft := "3px"
+
+    Local QStatusBar :=  "       QStatusBar {"                                       +;
+                        "       	color: " + cColor + ";"                          +;
+                        "       	font-size: " + cFontSize + ";"                   +;
+                        "       	border: " + cBorder + ";"                        +;
+                        "       	border-radius: " + cRadius + ";"                 +;
+                        "       	background-color: " + cBackground + ";"          +;
+                        "       }"                                                   +;
+                        "       QStatusBar QLabel{"                                  +;
+			            "           font-size: 14px;"                                +;
+			            "       	background-color: " + cBackground + ";"          +;
+			            "       }"                                                   +;
+			            "       QStatusBar::item {"                                  +;
+			            "          border: " + cBorder + ";"                         +;
+			            "          border-radius: " + cRadius + ";"                  +;
+                        "          padding-left: " + cPaddingLeft + ";"              +;
+			            "       }"
+
+Return( QStatusBar )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TMultiGetQCss                                                                  |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TMultiGet                                                          |
+|   - Parameters:                                                                              |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|       - cColor: Text color                                                                   |
+|       - cBackground: Color of background                                                     |
+|       - cSelectionBackground: Color of background when selected                              |
+|  - Return:                                                                                   |
+|       - QTextEdit: Style of TMultiGet                                                        |
+---------------------------------------------------------------------------------------------/*/
+Method TMultiGetQCss( aFocus As Array, aHover As Array, cBorder As Character, cRadius As Character, cColor As Character, cBackground As Character, cSelectionBackground As Character, cFontSize As Character, cBackgroundAttachment As Character, cPaddingLeft As Character ) Class SleekTLPP
+
+    Default aFocus                := {.T., "background-color: #1C2541;"}
+    Default aHover                := {.T., "border: 2px solid #1C2541;"}
+    Default cBorder               := "none"
+    Default cRadius               := "5px"
+    Default cColor                := "white"
+    Default cBackground           := "#3A506B"
+    Default cSelectionBackground  := "#313866"
+    Default cFontSize             := "14px"
+    Default cBackgroundAttachment := "fixed"
+    Default cPaddingLeft          := "3px"
+
+    Local QTextEdit :=  " QTextEdit{"                                                       +;
+                        "   border:" + cBorder + ";"                                        +;
+                        "   border-radius:" + cRadius + ";"                                 +;
+                        "   background-color:" + cBackground + ";"                          +;
+                        "   selection-background-color:" + cSelectionBackground + ";"       +;
+                        "   color:" + cColor + ";"                                          +;
+                        "   font-size: " + cFontSize + ";"                                  +;
+                        "   background-attachment: " + cBackgroundAttachment + ";"          +;
+                        "   padding-left: " + cPaddingLeft + ";"                            +;
+                        " }"
+
+    If aFocus[1] //=> If the style is active
+        QTextEdit += " QTextEdit::focus {" + aFocus[2] + "}"
+    EndIf
+
+    If aHover[1] //=> If the style is active
+        QTextEdit += " QTextEdit::hover {" + aHover[2] + "}"
+    EndIf
+
+Return( QTextEdit )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TPanelQCss                                                                     |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TPanel                                                             |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|       - cBackground: Color of background                                                     |
+|  - Return:                                                                                   |
+|       - QLabel: Style of TPanel                                                              |
+---------------------------------------------------------------------------------------------/*/
+Method TPanelQCss( cColor As Character, cFontSize As Character, cBorder As Character, cRadius As Character, cBackground As Character ) Class SleekTLPP
+
+    Default cColor      := "#FFFFFF"
+    Default cFontSize   := "12px"
+    Default cBorder     := "none"
+    Default cRadius     := "0px"
+    Default cBackground := "qlineargradient(x1: 1, y1: 0, x2: 0, y2: 1, stop: 0 #313866, stop: 1 #000000)"
+
+    Local QLabel :=  "       QLabel {"                                       +;
+                    "       	color: " + cColor + ";"                      +;
+                    "       	font-size: " + cFontSize + ";"               +;
+                    "       	border: " + cBorder + ";"                    +;
+                    "       	border-radius: " + cRadius + ";"             +;
+                    "       	background-color: " + cBackground + ";"      +;
+                    "       }"
+
+Return( QLabel )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TPanelCSSQCss                                                                  |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TPanelCSS                                                          |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|       - cBackground: Color of background                                                     |
+|  - Return:                                                                                   |
+|       - QFrame: Style of TPanelCSS                                                           |
+---------------------------------------------------------------------------------------------/*/
+Method TPanelCSSQCss( cColor As Character, cFontSize As Character, cBorder As Character, cRadius As Character, cBackground As Character ) Class SleekTLPP
+
+    Default cColor      := "#000000"
+    Default cFontSize   := "12px"
+    Default cBorder     := "2px solid #A9A9A9"
+    Default cRadius     := "0px"
+    Default cBackground := "black"
+
+    Local QFrame :=  "       QFrame {"                                       +;
+                    "       	color: " + cColor + ";"                      +;
+                    "       	font-size: " + cFontSize + ";"               +;
+                    "       	border-right: " + cBorder + ";"              +;
+                    "       	border-radius: " + cRadius + ";"             +;
+                    "       	background-color: " + cBackground + ";"      +;
+                    "       }"
+
+Return( QFrame )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TRadMenuQCss                                                                   |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TRadMenu                                                           |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackground: Color of background                                                     |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|  - Return:                                                                                   |
+|       - QRadioButton: Style of TRadMenu                                                      |
+---------------------------------------------------------------------------------------------/*/
+Method TRadMenuQCss( cColor As Character, cFontSize As Character, cBackground As Character, cBorder As Character, cRadius As Character, cWidth As Character, cHeight As Character ) Class SleekTLPP
+
+    Default cColor      := "white"
+    Default cFontSize   := "12px"
+    Default cBackground := "#3A506B"
+    Default cBorder     := "none"
+    Default cRadius     := "none"
+    Default cWidth      := "20px"
+    Default cHeight     := "16px"
+
+    Local QRadioButton :=  "       QRadioButton {"                                   +;
+                            "       	color: " + cColor + ";"                      +;
+                            "       	font-size: " + cFontSize + ";"               +;
+                            "       	background: " + cBackground + ";"            +;
+                            "       	border: " + cBorder + ";"                    +;
+                            "       	border-radius: " + cRadius + ";"             +;
+                            "           width: 18px;"                             +;
+                            "           height: 18px;"                            +;
+                            "       }"
+                            /*/"       QRadioButton::indicator:checked {"            +;
+                            "           image: url(/radio_on.png);"                  +;
+                            "       }"                                               +;
+                            "       QRadioButton::indicator::unchecked {"            +;
+                            "           image: url(/radio_off.png);"                 +;
+                            "}"	/*/
+
+Return( QRadioButton )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TSayQCss                                                                       |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TSay                                                               |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackground: Color of background                                                     |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|  - Return:                                                                                   |
+|       - QLabel: Style of TSay                                                                |
+---------------------------------------------------------------------------------------------/*/
+Method TSayQCss( cColor As Character, cFontSize As Character, cBackground As Character, cBorder As Character, cRadius As Character ) Class SleekTLPP
+
+    Default cColor      := "black"
+    Default cFontSize   := "14px"
+    Default cBackground := "transparent"
+    Default cBorder     := "none"
+    Default cRadius     := "none"
+
+    Local QLabel :=  "       QLabel {"                                       +;
+                    "       	color: " + cColor + ";"                      +;
+                    "       	font-size: " + cFontSize + ";"               +;
+                    "       	background-color: " + cBackground + ";"      +;
+                    "       	border: " + cBorder + ";"                    +;
+                    "       	border-radius: " + cRadius + ";"             +;
+                    "       }"
+
+Return( QLabel )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TSimpleEditorQCss                                                              |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TSimpleEditor                                                      |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackground: Color of background                                                     |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|  - Return:                                                                                   |
+|       - QTextEdit: Style of TSimpleEditor                                                    |
+---------------------------------------------------------------------------------------------/*/
+Method TSimpleEditorQCss( aFocus As Array, aHover As Array, cBorder As Character, cRadius As Character, cColor As Character, cBackground As Character, cSelectionBackground As Character, cFontSize As Character, cBackgroundAttachment As Character, cPaddingLeft As Character ) Class SleekTLPP
+
+    Default aFocus                := {.T., "background-color: #1C2541;"}
+    Default aHover                := {.T., "border: 3px solid #313866;"}
+    Default cBorder               := "1px solid #313866"
+    Default cRadius               := "5px"
+    Default cColor                := "white"
+    Default cBackground           := "#3A506B"
+    Default cSelectionBackground  := "#313866"
+    Default cFontSize             := "14px"
+    Default cBackgroundAttachment := "fixed"
+    Default cPaddingLeft          := "3px"
+
+    Local QTextEdit :=  " QTextEdit{"                                                       +;
+                        "   border:" + cBorder + ";"                                        +;
+                        "   border-radius:" + cRadius + ";"                                 +;
+                        "   background-color:" + cBackground + ";"                          +;
+                        "   selection-background-color:" + cSelectionBackground + ";"       +;
+                        "   color:" + cColor + ";"                                          +;
+                        "   font-size: " + cFontSize + ";"                                  +;
+                        "   background-attachment: " + cBackgroundAttachment + ";"          +;
+                        "   padding-left: " + cPaddingLeft + ";"                            +;
+                        " }"
+
+    If aFocus[1] //=> If the style is active
+        QTextEdit += " QTextEdit::focus {" + aFocus[2] + "}"
+    EndIf
+
+    If aHover[1] //=> If the style is active
+        QTextEdit += " QTextEdit::hover {" + aHover[2] + "}"
+    EndIf
+
+Return( QTextEdit )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TSliderQCss                                                                    |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TSlider                                                            |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackground: Color of background                                                     |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|  - Return:                                                                                   |
+|       - QSlider: Style of TSlider                                                            |
+---------------------------------------------------------------------------------------------/*/
+Method TSliderQCss( cColor As Character, cFontSize As Character, cBackground As Character, cBorder As Character, cRadius As Character, cMargin As Character ) Class SleekTLPP
+
+    Default cColor      := "white"
+    Default cFontSize   := "12px"
+    Default cBackground := "none"
+    Default cBorder     := "none"
+    Default cRadius     := "none"
+    Default cMargin     := "24px 0px"
+
+    Local QSlider :=  "       QSlider {"                                      +;
+                      "       	 color: " + cColor + ";"                      +;
+                      "       	 font-size: " + cFontSize + ";"               +;
+                      "       	 background-color: " + cBackground + ";"      +;
+                      "       	 border: " + cBorder + ";"                    +;
+                      "       	 border-radius: " + cRadius + ";"             +;
+                      "       }"                                              +;
+                      "       QSlider::handle:horizontal {"                   +;
+                      "          background-color: " + cBackground + ";"      +;
+                      "       }"                                              +;
+                      "       QSlider::sub-page:horizontal {"                 +;
+                      "          background-color: " + cBackground + ";"      +;
+                      "       }"                                              +;
+                      "       QSlider::add-page:horizontal {"                 +;
+                      "          background-color: " + cBackground + ";"      +;
+                      "          margin: " + cMargin + "; "                   +;
+                      "       }"
+
+Return( QSlider )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TSpinBoxQCss                                                                   |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TSpinBox                                                           |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackground: Color of background                                                     |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|  - Return:                                                                                   |
+|       - QSpinBox: Style of TSpinBox                                                          |
+---------------------------------------------------------------------------------------------/*/
+Method TSpinBoxQCss( cColor As Character, cFontSize As Character, cBackground As Character, cBorder As Character, cRadius As Character, cWidth As Character, cBackgroundDownPressed As Character, cBackgroundDownNoPressed As Character, cBackgroundUpPressed As Character, cBackgroundUpNoPressed As Character ) Class SleekTLPP
+
+    Default cColor                   := "white"
+    Default cFontSize                := "12px"
+    Default cBackground              := "#3A506B"
+    Default cBorder                  := "none"
+    Default cRadius                  := "5px"
+    Default cWidth                   := "10px"
+    Default cBackgroundDownPressed   := "#313866"
+    Default cBackgroundDownNoPressed := "#1E205C"
+    Default cBackgroundUpPressed     := "#313866"
+    Default cBackgroundUpNoPressed   := "#1E205C"
+
+    Local QSpinBox :=  "       QSpinBox {"                                            +;
+                    "       	color: " + cColor + ";"                               +;
+                    "       	font-size: " + cFontSize + ";"                        +;
+                    "       	background-color: " + cBackground + ";"               +;
+                    "       	border: " + cBorder + ";"                             +;
+                    "       	border-radius: " + cRadius + ";"                      +;
+                    "       }"                                                        
+                    /*/"       QSpinBox::up-button {"                                    +;
+                    "          width: " + cWidth + ";"                                +;
+                    "          border: " + cBorder + ";"                              +;
+                    "          background-color: " + cBackgroundUpNoPressed + ";"     +;
+                    "       }"                                                        +;
+                    "       QSpinBox::up-button:pressed {"                            +;
+                    "         background-color: " + cBackgroundUpPressed + ";"        +;
+                    "       }"                                                        +;
+                    "       QSpinBox::down-button {"                                  +;
+                    "         width: " + cWidth + ";"                                 +;
+                    "         border: " + cBorder + ";"                               +;
+                    "         background-color: " + cBackgroundDownNoPressed + "; "   +;
+                    "       }"                                                        +;
+                    "       QSpinBox::down-button:pressed {"                          +;
+                    "         background-color: " + cBackgroundDownPressed + ";"      +;
+                    "       }"/*/
+
+Return( QSpinBox )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TSplitterQCss                                                                  |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TSplitter                                                          |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackground: Color of background                                                     |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|  - Return:                                                                                   |
+|       - QSplitter: Style of TSplitter                                                        |
+---------------------------------------------------------------------------------------------/*/
+Method TSplitterQCss( cColor As Character, cFontSize As Character, cBackground As Character, cBorder As Character, cRadius As Character ) Class SleekTLPP
+
+    Default cColor      := "#FFFFFF"
+    Default cFontSize   := "12px"
+    Default cBackground := "qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #3AAECB, stop: 1 #0F9CBF)"
+    Default cBorder     := "2px solid #494429"
+    Default cRadius     := "6px"
+
+    Local QSplitter :=  "       QSplitter {"                                   +;
+                    "       	color: " + cColor + ";"                      +;
+                    "       	font-size: " + cFontSize + ";"               +;
+                    "       	background-color: " + cBackground + ";"      +;
+                    "       	border: " + cBorder + ";"                    +;
+                    "       	border-radius: " + cRadius + ";"             +;
+                    "       }"
+
+Return( QSplitter )
+
+/*/---------------------------------------------------------------------------------------------
+|	- Programa: TTreeQCss                                                                      |
+|	- Autor: Kauan Santana                                                                     |
+|	- Data: 04/07/2024                                                                         |
+|	- Description: Style of TTree                                                              |
+|   - Parameters:                                                                              |
+|       - cColor: Text color                                                                   |
+|       - cFontSize: Font size                                                                 |
+|       - cBackground: Color of background                                                     |
+|       - cBorder: Border                                                                      |
+|       - cRadius: Radius of border                                                            |
+|  - Return:                                                                                   |
+|       - QTreeWidget: Style of TTree                                                          |
+---------------------------------------------------------------------------------------------/*/
+Method TTreeQCss( cColor As Character, cFontSize As Character, cBackground As Character, cBorder As Character, cRadius As Character, cBackgroundSelected As Character, cBackgroundHover As Character ) Class SleekTLPP
+
+    Default cColor               := "white"
+    Default cFontSize            := "12px"
+    Default cBackground          := "#3A506B"
+    Default cBorder              := "none"
+    Default cRadius              := "6px"
+    Default cBackgroundSelected  := "#313866"
+    Default cBackgroundHover     := "#313866"
+
+    Local QTreeWidget := "       QTreeView {"                                 +;
+                         "          font-size: " + cFontSize + ";"            +;
+                         "          border: " + cBorder + ";"                 +;
+                         "          background-color: " + cBackground + ";"   +;
+                         "       	border-radius: " + cRadius + ";"          +;
+                         "        }"                                          +;
+                         "        QTreeView::item {"                          +;
+                         "          color: " + cColor + ";"                   +;
+                         "          border: " + cBorder + "; "                +;
+                         "          border-top-color: transparent;"           +;
+                         "          border-bottom-color: transparent;"        +;
+                         "        }"                                          +;
+                         "        QTreeView::item:selected {"                 +;
+                         "          background: " + cBackgroundSelected + ";" +;
+                         "        }"                                          +; 
+                         "        QTreeView::item:hover {"                    +;
+                         "          background: "+ cBackgroundHover + ";"     +;
+                         "        }"
+
+Return( QTreeWidget )
