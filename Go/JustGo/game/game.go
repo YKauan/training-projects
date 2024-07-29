@@ -19,10 +19,12 @@ type Game struct {
 	score            int
 }
 
+// => Add laser to the game
 func (g *Game) AddLaser(laser *Laser) {
 	g.lasers = append(g.lasers, laser)
 }
 
+// => Create a new game
 func NewGame() *Game {
 	g := &Game{
 		meteorSpawnTimer: NewTimer(24),
@@ -37,10 +39,12 @@ func NewGame() *Game {
 func (g *Game) Update() error {
 	g.player.Update()
 
+	// Update lasers
 	for _, laser := range g.lasers {
 		laser.Update()
 	}
 
+	// Verify if the meteor is ready to spawn
 	g.meteorSpawnTimer.Update()
 	if g.meteorSpawnTimer.IsReady() {
 		g.meteorSpawnTimer.Reset()
@@ -48,10 +52,12 @@ func (g *Game) Update() error {
 		g.meteors = append(g.meteors, m)
 	}
 
+	// Update stars
 	for _, meteor := range g.meteors {
 		meteor.Update()
 	}
 
+	// Verify if the star is ready to spawn
 	g.starsSpawnTimer.Update()
 	if g.starsSpawnTimer.IsReady() {
 		g.starsSpawnTimer.Reset()
@@ -59,16 +65,19 @@ func (g *Game) Update() error {
 		g.stars = append(g.stars, s)
 	}
 
+	// Update stars
 	for _, star := range g.stars {
 		star.Update()
 	}
 
+	// Verify if player is colliding with meteor
 	for _, m := range g.meteors {
 		if m.Collider().Intersects(g.player.Collider()) {
 			g.Reset()
 		}
 	}
 
+	// Verify if laser is colliding with meteor
 	for i, m := range g.meteors {
 		for j, l := range g.lasers {
 			if m.Collider().Intersects(l.Collider()) {
@@ -86,25 +95,31 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 	g.player.Draw(screen)
 
+	// Draw lasers
 	for _, laser := range g.lasers {
 		laser.Draw(screen)
 	}
 
+	// Draw meteors
 	for _, meteor := range g.meteors {
 		meteor.Draw(screen)
 	}
 
+	// Draw stars
 	for _, star := range g.stars {
 		star.Draw(screen)
 	}
 
+	// Draw score
 	text.Draw(screen, fmt.Sprintf("Score: %d", g.score), assets.FontUi, 20, 100, color.White)
 }
 
+// => Layout game screen
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
 	return screenWidth, screenHeight
 }
 
+// => Reset game state
 func (g *Game) Reset() {
 	g.player = NewPlayer(g)
 	g.lasers = nil

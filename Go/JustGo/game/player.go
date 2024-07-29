@@ -12,6 +12,7 @@ type Player struct {
 	laserLoadingTimer *Timer
 }
 
+// NewPlayer creates a player object
 func NewPlayer(game *Game) *Player {
 	image := assets.PlayerSprite
 
@@ -31,17 +32,21 @@ func NewPlayer(game *Game) *Player {
 	}
 }
 
+// Update the player position
 func (p *Player) Update() {
 	speed := 6.0
 
+	// Move the player to the left or right
 	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
 		p.position.X -= speed
 	} else if ebiten.IsKeyPressed(ebiten.KeyRight) {
 		p.position.X += speed
 	}
 
+	// Update the laser loading timer
 	p.laserLoadingTimer.Update()
 
+	// Shoot a laser
 	if ebiten.IsKeyPressed(ebiten.KeySpace) && p.laserLoadingTimer.IsReady() {
 
 		p.laserLoadingTimer.Reset()
@@ -60,6 +65,7 @@ func (p *Player) Update() {
 	}
 }
 
+// Draw the player on the screen
 func (p *Player) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 
@@ -70,6 +76,7 @@ func (p *Player) Draw(screen *ebiten.Image) {
 	screen.DrawImage(p.image, op)
 }
 
+// Collider returns the player collider
 func (p *Player) Collider() Rect {
 	bounds := p.image.Bounds()
 

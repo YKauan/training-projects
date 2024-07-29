@@ -13,6 +13,7 @@ type Star struct {
 	position Vector
 }
 
+// NewStar creates a star object
 func NewStar() *Star {
 	image := assets.StarsSprites[rand.Intn(len(assets.StarsSprites))]
 	speed := (rand.Float64() * 13)
@@ -29,10 +30,12 @@ func NewStar() *Star {
 
 }
 
+// Update the star position
 func (m *Star) Update() {
 	m.position.Y += m.speed
 }
 
+// Draw the star on the screen
 func (m *Star) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 
@@ -41,6 +44,7 @@ func (m *Star) Draw(screen *ebiten.Image) {
 	screen.DrawImage(m.image, op)
 }
 
+// Collider returns the star collider
 func (m *Star) Collider() Rect {
 	bounds := m.image.Bounds()
 

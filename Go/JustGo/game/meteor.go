@@ -13,6 +13,7 @@ type Meteor struct {
 	position Vector
 }
 
+// NewMeteor creates a meteor object
 func NewMeteor() *Meteor {
 	image := assets.MeteorSprites[rand.Intn(len(assets.MeteorSprites))]
 	speed := (rand.Float64() * 13)
@@ -29,10 +30,12 @@ func NewMeteor() *Meteor {
 
 }
 
+// Update the meteor position
 func (m *Meteor) Update() {
 	m.position.Y += m.speed
 }
 
+// Draw the meteor on the screen
 func (m *Meteor) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 
@@ -41,6 +44,7 @@ func (m *Meteor) Draw(screen *ebiten.Image) {
 	screen.DrawImage(m.image, op)
 }
 
+// Collider returns the meteor collider
 func (m *Meteor) Collider() Rect {
 	bounds := m.image.Bounds()
 

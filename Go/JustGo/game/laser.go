@@ -10,6 +10,7 @@ type Laser struct {
 	position Vector
 }
 
+// NewLaser creates a laser object
 func NewLaser(position Vector) *Laser {
 	image := assets.LaserSprite
 
@@ -26,12 +27,14 @@ func NewLaser(position Vector) *Laser {
 	}
 }
 
+// Update the laser position
 func (l *Laser) Update() {
 	speed := 7.0
 
 	l.position.Y += -speed
 }
 
+// Draw the laser on the screen
 func (l *Laser) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 
@@ -42,6 +45,7 @@ func (l *Laser) Draw(screen *ebiten.Image) {
 	screen.DrawImage(l.image, op)
 }
 
+// Collider returns the laser collider
 func (l *Laser) Collider() Rect {
 	bounds := l.image.Bounds()
 
