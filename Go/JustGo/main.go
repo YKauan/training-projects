@@ -6,8 +6,10 @@ import (
 )
 
 func main() {
+	//=> Creating the game
 	g := game.NewGame()
 
+	//=> Running the game
 	err := ebiten.RunGame(g)
 
 	if err != nil {
