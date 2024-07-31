@@ -1,0 +1,5 @@
+https://google.com
+https://alura.com.br
+https://amazon.com.br
+https://www.microsoft.com
+https://github.com
