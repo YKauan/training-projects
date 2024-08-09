@@ -1,5 +1,5 @@
 import { Pensamento } from './pensamento';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -12,8 +12,19 @@ export class PensamentoService {
 
   constructor(private http: HttpClient) { }
 
-  listar(): Observable<Pensamento[]> {
-    return this.http.get<Pensamento[]>(this.API)
+  listar(pagina: number, filtro: string, favorito: boolean): Observable<Pensamento[]> {
+    const itensPorPagina = 6
+    let params = new HttpParams().set('_page', pagina).set('_limit', itensPorPagina)
+
+    if(filtro.trim().length > 2) {
+      params = params.set('q', filtro)
+    }
+
+    if(favorito) {
+      params = params.set('favorito', favorito)
+    }
+
+    return this.http.get<Pensamento[]>(this.API, { params })
   }
 
   buscaPorId(id: number): Observable<Pensamento> {
@@ -33,5 +44,10 @@ export class PensamentoService {
   excluir(id: number): Observable<Pensamento> {
     const url = `${this.API}/${id}`
     return this.http.delete<Pensamento>(url)
+  }
+
+  mudarFavorito(pensamento: Pensamento): Observable<Pensamento> {
+    pensamento.favorito = !pensamento.favorito
+    return this.editar(pensamento)
   }
 }

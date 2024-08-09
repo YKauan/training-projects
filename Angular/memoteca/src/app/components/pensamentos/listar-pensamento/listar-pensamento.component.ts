@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { PensamentoService } from './../pensamento.service';
 import { Component, OnInit } from '@angular/core';
 import { Pensamento } from '../pensamento';
@@ -9,14 +10,59 @@ import { Pensamento } from '../pensamento';
 })
 export class ListarPensamentoComponent implements OnInit {
 
-  listaPensamentos: Pensamento[] = []
+  paginaAtual = 1;
+  filtro: string = '';
+  titulo: string = 'Meu Mural de Pensamentos';
+  favoritos: boolean = false;
+  haMaisPensamentos: boolean = true;
+  listaFavoritos: Pensamento[] = [];
+  listaPensamentos: Pensamento[] = [];
 
-  constructor(private service: PensamentoService) { }
+  constructor(
+    private service: PensamentoService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.service.listar().subscribe(pensamentos => {
+    this.service.listar(this.paginaAtual, this.filtro, this.favoritos).subscribe(pensamentos => {
       this.listaPensamentos = pensamentos
     })
   }
 
+  carregarMaisPensamentos() {
+    this.service.listar(++this.paginaAtual, this.filtro, this.favoritos).subscribe(listaPensamentos => {
+      this.listaPensamentos.push(...listaPensamentos);
+      if (!listaPensamentos.length) {
+        this.haMaisPensamentos = false
+      }
+    })
+  }
+
+  filtrarPensamentos() {
+    this.haMaisPensamentos = true
+    this.paginaAtual = 1;
+    this.service.listar(this.paginaAtual, this.filtro, this.favoritos).subscribe(listaPensamentos => {
+      this.listaPensamentos = listaPensamentos
+    })
+  }
+
+  listarFavoritos() {
+    this.titulo = 'Meus Pensamentos Favoritos'
+    this.favoritos = true
+    this.haMaisPensamentos = true
+    this.paginaAtual = 1;
+    this.service.listar(this.paginaAtual, this.filtro, this.favoritos).subscribe(listaPensamentosFavoritos => {
+      this.listaPensamentos = listaPensamentosFavoritos
+      this.listaFavoritos = listaPensamentosFavoritos
+    })
+  }
+
+  recarregarComponente() {
+    this.favoritos = false
+    this.paginaAtual = 1;
+
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([this.router.url]);
+  }
 }
