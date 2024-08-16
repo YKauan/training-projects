@@ -19,6 +19,7 @@
       {{ livrosResultado.totalItems}} resultados encontrados
   </div>
   <div
+    [@listAnimation]="livrosEncontrados$"
     class="container-card"
     *ngIf="livrosEncontrados$ | async as listaLivros, else telaInicial">
     <div *ngFor="let livro of listaLivros">
