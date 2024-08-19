@@ -1,9 +1,29 @@
 <header>
-  <button (click)="irParaTelaInicial()">
-    <img src="assets/imagens/logo.png" alt="Logo da aplicação Buscante">
-  </button>
-  <div>
-    <a href="https://github.com/YKauan/training-projects/tree/main/Angular/buscante" target="_blank">Sobre</a>
-    <a href="https://github.com/YKauan/training-projects/tree/main/Angular/buscante" target="_blank">Contato</a>
-  </div>
+  <a class="logo"
+    routerLink="/lista-livros"
+    routerLinkActive="active-page"
+    ariaCurrentWhenActive="page"
+    aria-label="Página inicial"
+    >
+    <img
+      src="assets/imagens/logo.png"
+      alt="Logo da aplicação Buscante">
+  </a>
+  <nav>
+    <a
+      routerLink="/sobre"
+      routerLinkActive="active-page"
+      ariaCurrentWhenActive="page"
+      aria-label="Mais informações sobre o Buscante"
+    >Sobre
+    </a>
+    <a
+      routerLink="/contato"
+      routerLinkActive="active-page"
+      ariaCurrentWhenActive="page"
+      aria-label="Entre em contato"
+    >Contato
+    </a>
+  </nav>
 </header>
+
